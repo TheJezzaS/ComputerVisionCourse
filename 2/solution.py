@@ -82,7 +82,9 @@ class Solution:
         """
         # you can erase the label_no_smooth initialization.
         label_no_smooth = np.zeros((ssdd_tensor.shape[0], ssdd_tensor.shape[1]))
-        """INSERT YOUR CODE HERE"""
+
+        label_no_smooth = np.argmin(ssdd_tensor, axis=2)
+
         return label_no_smooth
 
     @staticmethod
@@ -103,8 +105,27 @@ class Solution:
         """
         num_labels, num_of_cols = c_slice.shape[0], c_slice.shape[1]
         l_slice = np.zeros((num_labels, num_of_cols))
-        """INSERT YOUR CODE HERE"""
+
+        col = num_of_cols - 1
+        c_slice_cut = c_slice[:,0:-1]
+        c_slice_cut2 = c_slice[0:-1, 0:-1]
+
+
+        for i, d in enumerate(range(num_labels)):
+            # find C
+            C_d = c_slice[d, col]
+
+            # find M
+            m1 = self.dp_grade_slice(c_slice_cut, p1, p2)
+            m2 = p1 +
+            m3 = p2 +
+            M = min(m1, m2, m3)
+
         return l_slice
+
+    @staticmethod
+    def dp_grade_pixel(c_slice: np.ndarray, p1: float, p2: float) -> np.ndarray:
+
 
     def dp_labeling(self,
                     ssdd_tensor: np.ndarray,
